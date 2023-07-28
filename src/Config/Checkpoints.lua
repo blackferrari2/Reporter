@@ -10,6 +10,17 @@ local CHECKPOINTS = {}
 
 ---------------
 
+local function insert(data)
+    table.insert(CHECKPOINTS, data)
+end
+
+--
+
+insert{
+    AUTHOR = "TEST",
+    MESSAGE = "messsage",
+}
+
 ---------------
 
 return CHECKPOINTS

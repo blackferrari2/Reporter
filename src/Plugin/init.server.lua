@@ -33,10 +33,44 @@ local function sendCheckpointMessage()
     warn("checkpoint")
 end
 
+--
+
+local function buildCheckpointLoop()
+    return Loop.new(sendCheckpointMessage)
+end
+
+--
+
+local INTERVAL = Plugin.CHECKPOINT_INTERVAL
+
+local function startCheckpointLoop(loop)
+    loop:run(INTERVAL)
+end
+
+--
+
+local function updateButtonIcon(button, settings, toggle)
+    toggle = not toggle
+
+    local icon
+
+    if toggle then
+        icon = settings.ICON
+    else
+        icon = settings.ICON_SECONDARY
+    end
+
+    -- for some reason roblox doesnt load plugin icons if this is the case
+    if button.Icon == icon then
+        return
+    end
+
+    button.Icon = icon
+end
+
 ---------------
 
-local checkpoints = Loop.new(sendCheckpointMessage)
-local toolbar = plugin:CreateToolbar("test")
+local toolbar = plugin:CreateToolbar(Plugin.TOOLBAR)
 
 local toggleStart = toolbar:CreateButton(
     "startToggle",
@@ -58,24 +92,88 @@ togglePause.Enabled = false
 
 ---------------
 
-local isEnabled = false
+local currentCheckpointLoop
+local isDisabled = false
+local isPaused = false
+
+---------------
 
 local function onStartClick()
+    if not isDisabled or isPaused then
+        return
+    end
+
     sendStartMessage()
-    checkpoints:run(Plugin.CHECKPOINT_INTERVAL)
+
+    currentCheckpointLoop = buildCheckpointLoop()
+    startCheckpointLoop(currentCheckpointLoop)
+
+    togglePause.Enabled = true
 end
 
 local function onStopClick()
+    if isDisabled then
+        return
+    end
+
     sendEndMessage()
-    checkpoints:discard()
+
+    currentCheckpointLoop:discard()
+
+    togglePause.Enabled = false
 end
 
-toggleStart.Click:Connect(function()
-    isEnabled = not isEnabled
 
-    if isEnabled then
+--
+
+toggleStart.Click:Connect(function()
+    isDisabled = not isDisabled
+    isPaused = false
+
+    if isDisabled then
         onStartClick()
     else
         onStopClick()
     end
+
+    updateButtonIcon(togglePause, Plugin.PAUSE_TOGGLE_BUTTON, isPaused)
+    updateButtonIcon(toggleStart, Plugin.START_TOGGLE_BUTTON, isDisabled)
 end)
+
+---------------
+
+local function onPause()
+    if not isPaused or not isDisabled then
+        return
+    end
+
+    sendPauseMessage()
+
+    currentCheckpointLoop:stop()
+end
+
+local function onResume()
+    if isPaused or not isDisabled then
+        return
+    end
+
+    sendResumeMessage()
+
+    startCheckpointLoop(currentCheckpointLoop)
+end
+
+--
+
+togglePause.Click:Connect(function()
+    isPaused = not isPaused
+
+    if isPaused then
+        onPause()
+    else
+        onResume()
+    end
+
+    updateButtonIcon(togglePause, Plugin.PAUSE_TOGGLE_BUTTON, isPaused)
+end)
+
+---------------

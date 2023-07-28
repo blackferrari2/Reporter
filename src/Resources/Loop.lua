@@ -70,6 +70,8 @@ function LOOP:discard()
 
     self:stop()
     self.status = LOOP.STATUS.DEAD
+
+    setmetatable(self, nil)
 end
 
 ---------------

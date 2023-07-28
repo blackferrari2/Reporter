@@ -15,17 +15,17 @@ PLUGIN.CHECKPOINT_INTERVAL = 1
 PLUGIN.TOOLBAR = "Toolbar"
 
 PLUGIN.START_TOGGLE_BUTTON = {
-    TITLE = "title",
-    TIP = "tip",
+    TITLE = "Start / End",
+    TIP = "Start or end a session.",
     ICON = "http://www.roblox.com/asset/?id=14219066164",
-    ICON_SECONDARY = "http://www.roblox.com/asset/?id=14219066164",
+    ICON_SECONDARY = "http://www.roblox.com/asset/?id=14219067357",
 }
 
 PLUGIN.PAUSE_TOGGLE_BUTTON = {
-    TITLE = "title",
-    TIP = "tip",
-    ICON = "http://www.roblox.com/asset/?id=14219066164",
-    ICON_SECONDARY = "http://www.roblox.com/asset/?id=14219066164",
+    TITLE = "Pause / Resume",
+    TIP = "Pause or resume your session.",
+    ICON = "http://www.roblox.com/asset/?id=14220518020",
+    ICON_SECONDARY = "http://www.roblox.com/asset/?id=14220518644",
 }
 
 ---------------
