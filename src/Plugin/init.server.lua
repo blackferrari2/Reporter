@@ -7,10 +7,10 @@ local Loop = require(resources.Loop)
 local WebhookService = require(resources.WebhookService)
 
 local Plugin = require(config.Plugin)
-local Formats = require(config.Formats)
-local Checkpoints = require(config.Checkpoints)
+local Templates = require(config.Templates)
+local Roulletes = require(config.Roulletes)
 local Assets = require(config.Assets)
-warn(Formats)
+
 ---------------
 
 local RANDOM = Random.new()
@@ -23,24 +23,81 @@ end
 
 --
 
-local function sendStartMessage()
-    warn("start")
+local MATCH_WHOLE_WORDS_PATTERN = "%w+"
+
+local function format(text, definitions)
+    return string.gsub(text, MATCH_WHOLE_WORDS_PATTERN, definitions)
 end
 
-local function sendEndMessage()
-    warn("end")
+--
+
+local TAGS = Templates.TAGS
+
+local function sendStartMessage()
+    local template = Templates.START
+    local quote = getRandomArrayValue(Roulletes.OPENERS)
+
+    local result = format(template, {
+        [TAGS.EMOJI] = Assets.EMOJIS.START,
+        [TAGS.PROJECT_NAME] = Plugin.PROJECT_NAME,
+        [TAGS.DATE] = os.date(),
+        [TAGS.ANY] = quote,
+    })
+
+    warn(result)
+
+    local poster = getRandomArrayValue(Assets.BIG_POSTERS)
+
+    warn(poster)
+end
+
+local function sendEndMessage(loop)
+    local template = Templates.END
+
+    local result = format(template, {
+        [TAGS.EMOJI] = Assets.EMOJIS.END,
+        [TAGS.PROJECT_NAME] = Plugin.PROJECT_NAME,
+        [TAGS.TIME_ELAPSED] = loop.totalTimeRunning,
+    })
+
+    warn(result)
+
+    local poster = getRandomArrayValue(Assets.SMALL_POSTERS)
+
+    warn(poster)
 end
 
 local function sendPauseMessage()
-    warn("pause")
+    local template = Templates.PAUSE
+
+    local result = format(template, {
+        [TAGS.EMOJI] = Assets.EMOJIS.PAUSE,
+    })
+
+    warn(result)
 end
 
 local function sendResumeMessage()
-    warn("resume")
+    local template = Templates.RESUME
+
+    local result = format(template, {
+        [TAGS.EMOJI] = Assets.EMOJIS.RESUME,
+    })
+
+    warn(result)
 end
 
 local function sendCheckpointMessage()
-    local data = getRandomArrayValue(Checkpoints)
+    local checkpoint = getRandomArrayValue(Roulletes.CHECKPOINTS)
+    local template = Templates.CHECKPOINT
+
+    local result = format(template, {
+        [TAGS.EMOJI] = Assets.EMOJIS.CHECKPOINT,
+        [TAGS.NAME] = checkpoint.AUTHOR,
+        [TAGS.ANY] = checkpoint.MESSAGE,
+    })
+
+    warn(result)
 end
 
 --
