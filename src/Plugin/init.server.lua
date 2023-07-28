@@ -31,6 +31,16 @@ end
 
 --
 
+local function secondsToHMS(sec)
+    local hour = sec / 60^2
+    local minute = sec / 60 % 60
+    local second = sec % 60
+
+	return string.format("%02i:%02i:%02i", hour, minute, second)
+end
+
+--
+
 local TAGS = Templates.TAGS
 
 local function sendStartMessage()
@@ -52,12 +62,13 @@ local function sendStartMessage()
 end
 
 local function sendEndMessage(loop)
+    local timeElapsed = secondsToHMS(loop.totalTimeRunning)
     local template = Templates.END
 
     local result = format(template, {
         [TAGS.EMOJI] = Assets.EMOJIS.END,
         [TAGS.PROJECT_NAME] = Plugin.PROJECT_NAME,
-        [TAGS.TIME_ELAPSED] = loop.totalTimeRunning,
+        [TAGS.TIME_ELAPSED] = timeElapsed,
     })
 
     warn(result)
