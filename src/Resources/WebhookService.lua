@@ -20,7 +20,7 @@ end
 
 function WEBHOOK:message(text)
     local data = {
-        content = text
+        content = text,
     }
 
     self:_encodeAndPost(data)
@@ -35,3 +35,5 @@ function WEBHOOK:_encodeAndPost(data)
 end
 
 ---------------
+
+return WEBHOOK

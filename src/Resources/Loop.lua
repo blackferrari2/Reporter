@@ -29,7 +29,7 @@ function LOOP.new(callback)
     local obliterator = Janitor.new()
 
     self.janitor = obliterator
-    self.stop = obliterator:Add(GoodSignal.new(), "DisconnectAll")
+    self.kill = obliterator:Add(GoodSignal.new(), "DisconnectAll")
 
     return self
 end
@@ -43,25 +43,23 @@ function LOOP:run(interval)
 
     local active = true
 
-    self.stop:Once(function()
+    self.kill:Once(function()
         active = false
     end)
 
     task.spawn(function()
-        while active do
+        while task.wait(interval) and active do
             self:callback()
-
-            task.wait(interval)
         end
     end)
 end
 
-function LOOP:kill()
+function LOOP:stop()
     if self.status ~= LOOP.STATUS.ACTIVE then
         return
     end
 
-    self.stop:Fire()
+    self.kill:Fire()
     self.status = LOOP.STATUS.IDLE
 end
 
@@ -70,7 +68,7 @@ function LOOP:discard()
         return
     end
 
-    self:kill()
+    self:stop()
     self.status = LOOP.STATUS.DEAD
 end
 
