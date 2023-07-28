@@ -6,6 +6,10 @@
     GENERATION I
 ]]
 
+local ROULLETE = require(script.Parent._Roullete)
+
+---------------
+
 local ASSETS = {}
 
 ---------------
@@ -19,6 +23,11 @@ ASSETS.BIG_POSTERS = {
 ASSETS.SMALL_POSTERS = {
     "https://cdn.discordapp.com/attachments/1133978455910907995/1134270876024582145/jxKH2a0.png",
 }
+
+setmetatable(ASSETS.BIG_POSTERS, ROULLETE)
+setmetatable(ASSETS.SMALL_POSTERS, ROULLETE)
+
+--
 
 ASSETS.EMOJIS = {
     START = "<:BOT_START:1134268151635394572>",

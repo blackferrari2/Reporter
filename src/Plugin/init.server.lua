@@ -1,5 +1,16 @@
 -- <> main plugin script <> --
 
+--[[
+    progress printer plugin. create and track work sessions
+
+    watch out for rate limits
+
+    loosely created by blackferrari2 (Jonichromed)
+    Last Updated: 7/28/2023
+
+    :D
+]]
+
 local config = script.Config
 local resources = script.Resources
 
@@ -8,20 +19,11 @@ local WebhookService = require(resources.WebhookService)
 
 local Plugin = require(config.Plugin)
 local Templates = require(config.Templates)
-local Roulletes = require(config.Roulletes)
+local Checkpoints = require(config.Checkpoints)
+local Openers = require(config.Openers)
 local Assets = require(config.Assets)
 
 ---------------
-
-local RANDOM = Random.new()
-
-local function getRandomArrayValue(array)
-    local key = RANDOM:NextInteger(1, #array)
-
-    return array[key]
-end
-
---
 
 local MATCH_WHOLE_WORDS_PATTERN = "%w+"
 
@@ -53,7 +55,7 @@ local TAGS = Templates.TAGS
 
 local function sendStartMessage()
     local template = Templates.START
-    local quote = getRandomArrayValue(Roulletes.OPENERS)
+    local quote = Openers:get()
 
     local result = format(template, {
         [TAGS.EMOJI] = Assets.EMOJIS.START,
@@ -64,7 +66,7 @@ local function sendStartMessage()
 
     webhook:message(result)
 
-    local poster = getRandomArrayValue(Assets.BIG_POSTERS)
+    local poster = Assets.BIG_POSTERS:get()
 
     webhook:message(poster)
 
@@ -85,7 +87,7 @@ local function sendEndMessage(loop)
 
     webhook:message(result)
 
-    local poster = getRandomArrayValue(Assets.SMALL_POSTERS)
+    local poster = Assets.SMALL_POSTERS:get()
 
     webhook:message(poster)
 end
@@ -111,7 +113,7 @@ local function sendResumeMessage()
 end
 
 local function sendCheckpointMessage()
-    local checkpoint = getRandomArrayValue(Roulletes.CHECKPOINTS)
+    local checkpoint = Checkpoints:get()
     local template = Templates.CHECKPOINT
 
     local result = format(template, {
@@ -177,10 +179,6 @@ local togglePause = toolbar:CreateButton(
 )
 
 --
-
-togglePause.Enabled = false
-
----------------
 
 local currentCheckpointLoop
 local isDisabled = false
@@ -253,6 +251,9 @@ local function onResume()
 end
 
 --
+
+-- have it off by default on startup
+togglePause.Enabled = false
 
 togglePause.Click:Connect(function()
     isPaused = not isPaused

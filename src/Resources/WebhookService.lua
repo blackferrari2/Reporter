@@ -29,9 +29,7 @@ end
 function WEBHOOK:_encodeAndPost(data)
     local encoded = HttpService:JSONEncode(data)
 
-    task.spawn(function()
-        HttpService:PostAsync(self.URL, encoded)
-    end)
+    HttpService:PostAsync(self.URL, encoded)
 end
 
 ---------------
