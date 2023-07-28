@@ -41,10 +41,12 @@ end
 
 --
 
-local function sendLineSeparator()
+local webhook = WebhookService.new(Plugin.WEBHOOK_URL)
+
+local function sendLineSeparator(lag)
     local template = Templates.SEPARATOR
 
-    warn(template)
+    webhook:message(template, lag)
 end
 
 local TAGS = Templates.TAGS
@@ -60,13 +62,13 @@ local function sendStartMessage()
         [TAGS.ANY] = quote,
     })
 
-    warn(result)
+    webhook:message(result)
 
     local poster = getRandomArrayValue(Assets.BIG_POSTERS)
 
-    warn(poster)
+    webhook:message(poster, 2)
 
-    sendLineSeparator()
+    sendLineSeparator(5)
 end
 
 local function sendEndMessage(loop)
@@ -81,11 +83,11 @@ local function sendEndMessage(loop)
         [TAGS.TIME_ELAPSED] = timeElapsed,
     })
 
-    warn(result)
+    webhook:message(result, 2)
 
     local poster = getRandomArrayValue(Assets.SMALL_POSTERS)
 
-    warn(poster)
+    webhook:message(poster, 4)
 end
 
 local function sendPauseMessage()
@@ -95,7 +97,7 @@ local function sendPauseMessage()
         [TAGS.EMOJI] = Assets.EMOJIS.PAUSE,
     })
 
-    warn(result)
+    webhook:message(result)
 end
 
 local function sendResumeMessage()
@@ -105,7 +107,7 @@ local function sendResumeMessage()
         [TAGS.EMOJI] = Assets.EMOJIS.RESUME,
     })
 
-    warn(result)
+    webhook:message(result)
 end
 
 local function sendCheckpointMessage()
@@ -118,7 +120,7 @@ local function sendCheckpointMessage()
         [TAGS.ANY] = checkpoint.MESSAGE,
     })
 
-    warn(result)
+    webhook:message(result)
 end
 
 --
