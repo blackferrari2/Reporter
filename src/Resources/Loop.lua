@@ -25,6 +25,7 @@ function LOOP.new(callback)
 
     self.status = LOOP.STATUS.IDLE
     self.callback = callback
+    self.totalTimeRunning = 0
 
     local obliterator = Janitor.new()
 
@@ -42,9 +43,14 @@ function LOOP:run(interval)
     self.status = LOOP.STATUS.ACTIVE
 
     local active = true
+    local timeThen = tick()
 
     self.kill:Once(function()
         active = false
+
+        local timeElapsed = tick() - timeThen
+
+        self.totalTimeRunning += timeElapsed
     end)
 
     task.spawn(function()
