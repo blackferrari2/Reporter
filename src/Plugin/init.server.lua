@@ -10,8 +10,18 @@ local Plugin = require(config.Plugin)
 local Formats = require(config.Formats)
 local Checkpoints = require(config.Checkpoints)
 local Assets = require(config.Assets)
-
+warn(Formats)
 ---------------
+
+local RANDOM = Random.new()
+
+local function getRandomArrayValue(array)
+    local key = RANDOM:NextInteger(1, #array)
+
+    return array[key]
+end
+
+--
 
 local function sendStartMessage()
     warn("start")
@@ -30,7 +40,7 @@ local function sendResumeMessage()
 end
 
 local function sendCheckpointMessage()
-    warn("checkpoint")
+    local data = getRandomArrayValue(Checkpoints)
 end
 
 --
