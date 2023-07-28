@@ -18,21 +18,18 @@ function WEBHOOK.new(URL)
     return self
 end
 
-function WEBHOOK:message(text, lag)
+function WEBHOOK:message(text)
     local data = {
         content = text,
     }
 
-    self:_encodeAndPost(data, lag)
+    self:_encodeAndPost(data)
 end
 
--- `lag` is so that i dont get rate limited... :p
-function WEBHOOK:_encodeAndPost(data, lag)
+function WEBHOOK:_encodeAndPost(data)
     local encoded = HttpService:JSONEncode(data)
 
     task.spawn(function()
-        task.wait(lag)
-
         HttpService:PostAsync(self.URL, encoded)
     end)
 end

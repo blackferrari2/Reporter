@@ -43,10 +43,10 @@ end
 
 local webhook = WebhookService.new(Plugin.WEBHOOK_URL)
 
-local function sendLineSeparator(lag)
+local function sendLineSeparator()
     local template = Templates.SEPARATOR
 
-    webhook:message(template, lag)
+    webhook:message(template)
 end
 
 local TAGS = Templates.TAGS
@@ -66,16 +66,16 @@ local function sendStartMessage()
 
     local poster = getRandomArrayValue(Assets.BIG_POSTERS)
 
-    webhook:message(poster, 2)
+    webhook:message(poster)
 
-    sendLineSeparator(5)
+    sendLineSeparator()
 end
 
 local function sendEndMessage(loop)
     local timeElapsed = secondsToHMS(loop.totalTimeRunning)
     local template = Templates.END
 
-    sendLineSeparator(6)
+    sendLineSeparator()
 
     local result = format(template, {
         [TAGS.EMOJI] = Assets.EMOJIS.END,
@@ -83,11 +83,11 @@ local function sendEndMessage(loop)
         [TAGS.TIME_ELAPSED] = timeElapsed,
     })
 
-    webhook:message(result, 10)
+    webhook:message(result)
 
     local poster = getRandomArrayValue(Assets.SMALL_POSTERS)
 
-    webhook:message(poster, 15)
+    webhook:message(poster)
 end
 
 local function sendPauseMessage()
