@@ -16,7 +16,7 @@ setmetatable(OPENERS, ROULLETE)
 --
 
 OPENERS(
-    "please suggest more knob quotes."
+    `KNOB: "Trusting you is my decision, proving me wrong is your choice."`
 )
 
 ---------------
