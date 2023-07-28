@@ -5,3 +5,11 @@
 
     GENERATION I
 ]]
+
+local CHECKPOINTS = {}
+
+---------------
+
+---------------
+
+return CHECKPOINTS

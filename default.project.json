@@ -4,15 +4,23 @@
     "$className": "DataModel",
 
     "Workspace": {
-      "Plugin": {
-        "$path": "src/shared",
+      "Source": {
+        "$className": "Folder",
 
-        "Config": {
-          "$path": "src/Config"
+        "Plugin": {
+          "$path": "src/Plugin",
+  
+          "Config": {
+            "$path": "src/Config"
+          },
+  
+          "Resources": {
+            "$path": "src/Resources"
+          }
         },
 
-        "Resources": {
-          "$path": "src/Resources"
+        "Packages": {
+          "$path": "Packages"
         }
       }
     }
