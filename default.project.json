@@ -1,0 +1,20 @@
+{
+  "name": "Reporter",
+  "tree": {
+    "$className": "DataModel",
+
+    "Workspace": {
+      "Plugin": {
+        "$path": "src/shared",
+
+        "Config": {
+          "$path": "src/Config"
+        },
+
+        "Resources": {
+          "$path": "src/Resources"
+        }
+      }
+    }
+  }
+}
