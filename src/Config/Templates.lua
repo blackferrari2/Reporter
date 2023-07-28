@@ -3,12 +3,12 @@
 local TEMPLATES = {}
 
 TEMPLATES.TAGS = {
-    EMOJI = "(tag_emoji)",
-    PROJECT_NAME = "(tag_pname)",
-    DATE = "(tag_date)",
-    TIME_ELAPSED = "(tag_time)",
-    NAME = "(tag_author)",
-    ANY = "(tag_arbitrary)",
+    EMOJI = "tagEMOJI",
+    PROJECT_NAME = "tagPNAME",
+    DATE = "tagDATE",
+    TIME_ELAPSED = "tagTIME",
+    NAME = "tagNAME",
+    ANY = "tagARBITRARY",
 }
 
 ---------------

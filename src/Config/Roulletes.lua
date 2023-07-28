@@ -31,9 +31,9 @@ setmetatable(OPENERS, ROULLETE)
 
 --
 
-OPENERS{
-    "message123"
-}
+OPENERS(
+    "opener"
+)
 
 ---------------
 

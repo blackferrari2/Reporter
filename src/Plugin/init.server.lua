@@ -41,6 +41,12 @@ end
 
 --
 
+local function sendLineSeparator()
+    local template = Templates.SEPARATOR
+
+    warn(template)
+end
+
 local TAGS = Templates.TAGS
 
 local function sendStartMessage()
@@ -59,11 +65,15 @@ local function sendStartMessage()
     local poster = getRandomArrayValue(Assets.BIG_POSTERS)
 
     warn(poster)
+
+    sendLineSeparator()
 end
 
 local function sendEndMessage(loop)
     local timeElapsed = secondsToHMS(loop.totalTimeRunning)
     local template = Templates.END
+
+    sendLineSeparator()
 
     local result = format(template, {
         [TAGS.EMOJI] = Assets.EMOJIS.END,
@@ -194,7 +204,7 @@ local function onStopClick()
         return
     end
 
-    sendEndMessage()
+    sendEndMessage(currentCheckpointLoop)
 
     currentCheckpointLoop:discard()
 
