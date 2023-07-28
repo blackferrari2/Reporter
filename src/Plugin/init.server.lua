@@ -75,7 +75,7 @@ local function sendEndMessage(loop)
     local timeElapsed = secondsToHMS(loop.totalTimeRunning)
     local template = Templates.END
 
-    sendLineSeparator()
+    sendLineSeparator(6)
 
     local result = format(template, {
         [TAGS.EMOJI] = Assets.EMOJIS.END,
@@ -83,11 +83,11 @@ local function sendEndMessage(loop)
         [TAGS.TIME_ELAPSED] = timeElapsed,
     })
 
-    webhook:message(result, 2)
+    webhook:message(result, 10)
 
     local poster = getRandomArrayValue(Assets.SMALL_POSTERS)
 
-    webhook:message(poster, 4)
+    webhook:message(poster, 15)
 end
 
 local function sendPauseMessage()
