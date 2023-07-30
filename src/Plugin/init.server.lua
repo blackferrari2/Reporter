@@ -204,6 +204,9 @@ local function onStopClick()
         return
     end
 
+    -- if we dont call stop here, `loop.totalTimeRunning` wont update
+    currentCheckpointLoop:stop()
+
     sendEndMessage(currentCheckpointLoop)
 
     currentCheckpointLoop:discard()
