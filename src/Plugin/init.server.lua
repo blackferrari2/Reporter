@@ -204,14 +204,12 @@ local function onStopClick()
         return
     end
 
-    -- if we dont call stop here, `loop.totalTimeRunning` wont update
-    currentCheckpointLoop:stop()
-
-    sendEndMessage(currentCheckpointLoop)
-
+    -- if `:kill()` isnt called, `loop.totalTimeRunning` doesnt update
     currentCheckpointLoop:discard()
 
     togglePause.Enabled = false
+
+    sendEndMessage(currentCheckpointLoop)
 end
 
 
@@ -221,14 +219,14 @@ toggleStart.Click:Connect(function()
     isDisabled = not isDisabled
     isPaused = false
 
+    updateButtonIcon(togglePause, Plugin.PAUSE_TOGGLE_BUTTON, isPaused)
+    updateButtonIcon(toggleStart, Plugin.START_TOGGLE_BUTTON, isDisabled)
+
     if isDisabled then
         onStartClick()
     else
         onStopClick()
     end
-
-    updateButtonIcon(togglePause, Plugin.PAUSE_TOGGLE_BUTTON, isPaused)
-    updateButtonIcon(toggleStart, Plugin.START_TOGGLE_BUTTON, isDisabled)
 end)
 
 ---------------
