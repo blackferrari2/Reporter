@@ -21,8 +21,8 @@ ASSETS.BIG_POSTERS = {
 }
 
 ASSETS.SMALL_POSTERS = {
-    "https://cdn.discordapp.com/attachments/1092934480534196424/1134563448160788531/oydAaqG.png",
-    "https://cdn.discordapp.com/attachments/1092934480534196424/1134563435426885753/J4NUcWv.png",
+    "https://cdn.discordapp.com/attachments/1066213685963542529/1136124277406564454/DZGqH8o.png",
+    "https://cdn.discordapp.com/attachments/1066213685963542529/1136124307391643768/52lGthx.png",
 }
 
 setmetatable(ASSETS.BIG_POSTERS, ROULLETE)
