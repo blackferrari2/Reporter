@@ -130,7 +130,24 @@ end
 
 -- checks to see if files in the bot settings are valid
 local function verify()
-    
+    local roulleteMetatable = require(bot._Roullete)
+
+    local openers = require(bot.Openers)
+    local openersCheck = t.values(t.string)
+
+    assert(openersCheck(openers))
+    assert(getmetatable(openers) == roulleteMetatable)
+
+    local checkpoints = require(bot.Checkpoints)
+    local checkpointsCheck = t.values(t.strictInterface({
+        AUTHOR = t.string,
+        MESSAGE = t.string,
+    }))
+
+    assert(checkpointsCheck(checkpoints))
+    assert(getmetatable(checkpoints) == roulleteMetatable, "")
+
+
 end
 
 local function make()

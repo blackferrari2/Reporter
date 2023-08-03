@@ -1246,4 +1246,22 @@ do
 	end
 end
 
+function t.metatable(meta)
+	return function(value)
+		local tableSuccess, tableErrMsg = t.table(value)
+
+		if not tableSuccess then
+			return false, tableErrMsg
+		end
+
+		local valueMeta = getmetatable(value)
+
+		if valueMeta ~= meta then
+			return false, "metatable doesnt match"
+		end
+
+		return true
+	end
+end
+
 return t

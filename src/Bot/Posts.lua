@@ -1,9 +1,9 @@
 -- <> messages that are sent whenever a new session starts <> --
 
 --[[
-    Last Updated: 7/28/2023
+    NOTE
 
-    GENERATION I
+    DO NOT EDIT THE FUNCTION names UNLESS U KNOW WHAT UR DOING
 ]]
 
 local bot = script.Parent
@@ -48,7 +48,7 @@ end
 
 function POSTS:START()
     local template = Templates.START
-    local quote = Openers:get()
+    local quote = Openers:GET()
 
     local text = format(template, {
         [TAGS.EMOJI] = Assets.EMOJIS.START,
@@ -65,7 +65,7 @@ function POSTS:START()
 
     self.webhook:message(text)
 
-    local poster = Assets.BIG_POSTERS:get()
+    local poster = Assets.BIG_POSTERS:GET()
 
     self.webhook:message(poster)
 
@@ -105,7 +105,7 @@ function POSTS:RESUME()
 end
 
 function POSTS:CHECKPOINT()
-    local checkpoint = Checkpoints:get()
+    local checkpoint = Checkpoints:GET()
     local template = Templates.CHECKPOINT
 
     local text = format(template, {
@@ -154,7 +154,7 @@ function POSTS:END(loop)
 
     self.webhook:message(text)
 
-    local poster = Assets.SMALL_POSTERS:get()
+    local poster = Assets.SMALL_POSTERS:GET()
 
     self.webhook:message(poster)
 end
