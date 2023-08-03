@@ -10,10 +10,6 @@
         "Plugin": {
           "$path": "src/Plugin",
   
-          "Config": {
-            "$path": "src/Config"
-          },
-  
           "Resources": {
             "$path": "src/Resources"
           }
@@ -21,6 +17,10 @@
 
         "Packages": {
           "$path": "Packages"
+        },
+
+        "Bot": {
+          "$path": "src/Bot"
         }
       }
     }

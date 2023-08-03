@@ -1,0 +1,132 @@
+-- <> messages that are sent whenever a new session starts <> --
+
+--[[
+    Last Updated: 7/28/2023
+
+    GENERATION I
+]]
+
+local bot = script.Parent
+
+local Assets = require(bot.Assets)
+local Templates = require(bot.Templates)
+local Openers = require(bot.Openers)
+local Checkpoints = require(bot.Checkpoints)
+
+---------------
+
+local POSTS = {}
+POSTS.__index = POSTS
+
+---------------
+
+function POSTS.new(webhook)
+    local self = {}
+    setmetatable(self, POSTS)
+
+    self.webhook = webhook
+
+    return self
+end
+
+function POSTS:LINE_SEPARATOR()
+    local template = Templates.SEPARATOR
+
+    self.webhook:message(template)
+end
+
+--
+
+local TAGS = Templates.TAGS
+local MATCH_WHOLE_WORDS_PATTERN = "%w+"
+
+local function format(text, definitions)
+    return string.gsub(text, MATCH_WHOLE_WORDS_PATTERN, definitions)
+end
+
+function POSTS:START()
+    local template = Templates.START
+    local quote = Openers:get()
+
+    local text = format(template, {
+        [TAGS.EMOJI] = Assets.EMOJIS.START,
+        [TAGS.PROJECT_NAME] = Assets.PROJECT_NAME,
+        [TAGS.DATE] = os.date(),
+        [TAGS.ANY] = quote,
+    })
+
+    self.webhook:message(text)
+
+    local poster = Assets.BIG_POSTERS:get()
+
+    self.webhook:message(poster)
+
+    self:LINE_SEPARATOR()
+end
+
+function POSTS:PAUSE()
+    local template = Templates.PAUSE
+
+    local text = format(template, {
+        [TAGS.EMOJI] = Assets.EMOJIS.PAUSE,
+    })
+
+    self.webhook:message(text)
+end
+
+function POSTS:RESUME()
+    local template = Templates.RESUME
+
+    local text = format(template, {
+        [TAGS.EMOJI] = Assets.EMOJIS.RESUME,
+    })
+
+    self.webhook:message(text)
+end
+
+function POSTS:CHECKPOINT()
+    local checkpoint = Checkpoints:get()
+    local template = Templates.CHECKPOINT
+
+    local text = format(template, {
+        [TAGS.EMOJI] = Assets.EMOJIS.CHECKPOINT,
+        [TAGS.NAME] = checkpoint.AUTHOR,
+        [TAGS.ANY] = checkpoint.MESSAGE,
+    })
+
+    self.webhook:message(text)
+end
+
+--
+
+local function secondsToHMS(sec)
+    local hour = sec / 60^2
+    local minute = sec / 60 % 60
+    local second = sec % 60
+
+	return string.format("%02i:%02i:%02i", hour, minute, second)
+end
+
+function POSTS:END(loop)
+    local timeElapsed = secondsToHMS(loop.totalTimeRunning)
+
+    self:LINE_SEPARATOR()
+
+    local template = Templates.END
+
+    local text = format(template, {
+        [TAGS.EMOJI] = Assets.EMOJIS.END,
+        [TAGS.PROJECT_NAME] = Assets.PROJECT_NAME,
+        [TAGS.TIME_ELAPSED] = timeElapsed,
+    })
+
+    self.webhook:message(text)
+
+    local poster = Assets.SMALL_POSTERS:get()
+
+    self.webhook:message(poster)
+end
+
+---------------
+
+return POSTS
