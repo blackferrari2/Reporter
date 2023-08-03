@@ -130,13 +130,17 @@ end
 
 -- checks to see if files in the bot settings are valid
 local function verify()
-    local roulleteMetatable = require(bot._Roullete)
+    local roullete = require(bot._Roullete)
+    local isRoullete = t.metatable(roullete)
+
+    assert(t.callback(roullete.__call))
+    assert(t.callback(roullete.GET))
 
     local openers = require(bot.Openers)
     local openersCheck = t.values(t.string)
 
     assert(openersCheck(openers))
-    assert(getmetatable(openers) == roulleteMetatable)
+    assert(isRoullete(openers))
 
     local checkpoints = require(bot.Checkpoints)
     local checkpointsCheck = t.values(t.strictInterface({
@@ -145,9 +149,38 @@ local function verify()
     }))
 
     assert(checkpointsCheck(checkpoints))
-    assert(getmetatable(checkpoints) == roulleteMetatable, "")
+    assert(isRoullete(checkpoints))
 
+    local assets = require(bot.Assets)
+    local assetsCheck = t.interface({
+        PROJECT_NAME = t.string,
+        WEBHOOK_URL = t.string,
+        CHECKPOINT_INTERVAL = t.numberMin(30),
 
+        EMOJIS = t.table,
+        BIG_POSTERS = t.table,
+        SMALL_POSTERS = t.table,
+    })
+
+    assert(assetsCheck(assets))
+
+    local emojis = assets.EMOJIS
+    local emojisCheck = t.strictInterface({
+        START = t.string,
+        END = t.string,
+        PAUSE = t.string,
+        RESUME = t.string,
+        CHECKPOINT = t.string,
+    })
+
+    assetsCheck(emojisCheck(emojis))
+
+    local bigPosters = assets.BIG_POSTERS
+    local smallPosters = assets.SMALL_POSTERS
+    local posterCheck = t.union(t.values(t.string), isRoullete)
+
+    assert(posterCheck(bigPosters))
+    assert(posterCheck(smallPosters))
 end
 
 local function make()

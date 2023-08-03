@@ -34,6 +34,7 @@ ASSETS.PROJECT_NAME = "KNOB"
 ASSETS.WEBHOOK_URL = "https://discord.com/api/webhooks/1135040937060487248/fL3oJ49wsT5TiMLNLtBen5i2BNSaTiKDUV2laO1Mumf6d-vrHYbdxRr31D-2vO9hK_uQ"
 ASSETS.CHECKPOINT_INTERVAL = 1
 -- WARNING: you can be rate-limited by discord if `CHECKPOINT_INTERVAL` is low.
+-- minimum: 30s or else the plugin will throw an error
 
 ASSETS.EMOJIS = {
     START = "<:BOT_START:1135047206089531532>",
