@@ -5,11 +5,16 @@ registry = "test"
 [[package]]
 name = "blackferrari2/reporter"
 version = "0.1.0"
-dependencies = [["goodsignal", "stravant/goodsignal@0.2.1"], ["janitor", "howmanysmall/janitor@1.15.4"]]
+dependencies = [["goodsignal", "stravant/goodsignal@0.2.1"], ["janitor", "howmanysmall/janitor@1.15.4"], ["t", "osyrisrblx/t@3.0.0"]]
 
 [[package]]
 name = "howmanysmall/janitor"
 version = "1.15.4"
+dependencies = []
+
+[[package]]
+name = "osyrisrblx/t"
+version = "3.0.0"
 dependencies = []
 
 [[package]]

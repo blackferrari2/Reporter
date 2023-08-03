@@ -19,10 +19,12 @@ assert(plugin, "NOT RUNNING IN PLUGIN")
 
 local source = script.Parent
 local resources = script.Resources
+local packages = source.Packages
 
 local Config = require(script.Config)
 local Loop = require(resources.Loop)
 local WebhookService = require(resources.WebhookService)
+local t = require(packages.t)
 
 ---------------
 
