@@ -28,7 +28,7 @@ setmetatable(ASSETS.SMALL_POSTERS, ROULLETE)
 
 ASSETS.PROJECT_NAME = "Project Name"
 ASSETS.WEBHOOK_URL = "[replace me!]"
-ASSETS.CHECKPOINT_INTERVAL = 31
+ASSETS.CHECKPOINT_INTERVAL = 3600
 -- WARNING: you can be rate-limited by discord if `CHECKPOINT_INTERVAL` is low.
 -- minimum: 30s or else the plugin will throw an error
 
