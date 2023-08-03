@@ -18,7 +18,15 @@ function WEBHOOK.new(URL)
     return self
 end
 
+local function isEmptyText(text)
+    return text == ""
+end
+
 function WEBHOOK:message(text)
+    if isEmptyText(text) then
+        return
+    end
+
     local data = {
         content = text,
     }
