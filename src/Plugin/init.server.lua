@@ -181,6 +181,8 @@ local function verify()
 
     assert(posterCheck(bigPosters))
     assert(posterCheck(smallPosters))
+
+    warn("bot plugin assets r good to go")
 end
 
 local function make()
@@ -264,7 +266,7 @@ end
 local function onResume()
     sendBotMessage:RESUME()
 
-    createCheckpointLoop():run(checkpointLoopRate)
+    checkpointLoop:run(checkpointLoopRate)
 end
 
 --
