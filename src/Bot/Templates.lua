@@ -1,5 +1,11 @@
 -- <> default message templates <> --
 
+--[[
+    NOTE
+
+    DO NOT EDIT TAGS OR TEMPLATE NAMES UNLESS U KNOW WHAT UR DOING
+]]
+
 local TEMPLATES = {}
 
 TEMPLATES.TAGS = {
