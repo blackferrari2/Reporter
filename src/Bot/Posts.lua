@@ -32,7 +32,9 @@ end
 function POSTS:LINE_SEPARATOR()
     local template = Templates.SEPARATOR
 
-    self.webhook:message(template)
+    --self.webhook:message(template)
+
+    warn(template)
 end
 
 --
@@ -55,6 +57,12 @@ function POSTS:START()
         [TAGS.ANY] = quote,
     })
 
+    warn(text)
+
+    if true then
+        return
+    end
+
     self.webhook:message(text)
 
     local poster = Assets.BIG_POSTERS:get()
@@ -71,6 +79,12 @@ function POSTS:PAUSE()
         [TAGS.EMOJI] = Assets.EMOJIS.PAUSE,
     })
 
+    warn(text)
+
+    if true then
+        return
+    end
+
     self.webhook:message(text)
 end
 
@@ -80,6 +94,12 @@ function POSTS:RESUME()
     local text = format(template, {
         [TAGS.EMOJI] = Assets.EMOJIS.RESUME,
     })
+
+    warn(text)
+
+    if true then
+        return
+    end
 
     self.webhook:message(text)
 end
@@ -93,6 +113,12 @@ function POSTS:CHECKPOINT()
         [TAGS.NAME] = checkpoint.AUTHOR,
         [TAGS.ANY] = checkpoint.MESSAGE,
     })
+
+    warn(text)
+
+    if true then
+        return
+    end
 
     self.webhook:message(text)
 end
@@ -119,6 +145,12 @@ function POSTS:END(loop)
         [TAGS.PROJECT_NAME] = Assets.PROJECT_NAME,
         [TAGS.TIME_ELAPSED] = timeElapsed,
     })
+
+    warn(text)
+
+    if true then
+        return
+    end
 
     self.webhook:message(text)
 

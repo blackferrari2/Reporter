@@ -72,8 +72,12 @@ local function findBotSettings()
 end
 
 local function createBotSettings()
-    if findBotSettings() then
-        error("BOT DIRECTORY ALREADY EXISTS")
+    local settingsAlreadyExist = findBotSettings()
+
+    if settingsAlreadyExist then
+        warn("SETTINGS ALREADY EXIST. REPLACING WITH A NEW COPY")
+
+        settingsAlreadyExist:Destroy()
     end
 
     local template = source.Bot
@@ -100,7 +104,10 @@ togglePause.Enabled = false
 --
 
 local sendBotMessage = false
+
 local checkpointLoop = false
+local checkpointLoopRate = false
+
 local shouldStart = false
 local shouldPause = false
 
@@ -110,8 +117,10 @@ local bot = findBotSettings()
 
 local function setup()
     local assets = require(bot.Assets)
-    local messageList = require(bot.Posts)
 
+    checkpointLoopRate = assets.CHECKPOINT_INTERVAL
+
+    local messageList = require(bot.Posts)
     local webhook = WebhookService.new(assets.WEBHOOK_URL)
 
     sendBotMessage = messageList.new(webhook)
@@ -119,11 +128,12 @@ end
 
 -- checks to see if files in the bot settings are valid
 local function verify()
+    
 end
 
 local function make()
-    verify()
     setup()
+    verify()
 
     toggleStart.Enabled = true
 end
@@ -143,8 +153,6 @@ end)
 
 ---------------
 
-local INTERVAL = Config.CHECKPOINT_INTERVAL
-
 local function createCheckpointLoop()
     checkpointLoop = Loop.new(function()
         sendBotMessage:CHECKPOINT()
@@ -156,7 +164,7 @@ end
 local function onStart()
     sendBotMessage:START()
 
-    createCheckpointLoop():run(INTERVAL)
+    createCheckpointLoop():run(checkpointLoopRate)
 end
 
 local function onStop()
@@ -165,7 +173,6 @@ local function onStop()
 
     sendBotMessage:END(checkpointLoop)
 end
-
 
 --
 
@@ -183,9 +190,9 @@ end)
 
 -- reset pause button back to idle when ending a session
 toggleStart.Click:Connect(function()
-    togglePause.Enabled = shouldStart
+    togglePause.Enabled = not shouldStart
 
-    if shouldStart then
+    if not shouldStart then
         return
     end
 
@@ -205,13 +212,15 @@ end
 local function onResume()
     sendBotMessage:RESUME()
 
-    createCheckpointLoop():run(INTERVAL)
+    createCheckpointLoop():run(checkpointLoopRate)
 end
 
 --
 
 togglePause.Click:Connect(function()
     shouldPause = not shouldPause
+
+    updateButtonIcon(togglePause, Config.PAUSE_TOGGLE_BUTTON, shouldPause)
 
     if shouldPause then
         onPause()

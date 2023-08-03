@@ -7,3 +7,4 @@ realm = "shared"
 [dependencies]
 janitor = "howmanysmall/janitor@1.15.4"
 goodsignal = "stravant/goodsignal@0.2.1"
+t = "osyrisrblx/t@3.0.0"
