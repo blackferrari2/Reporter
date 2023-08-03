@@ -182,7 +182,7 @@ local function verify()
     assert(posterCheck(bigPosters))
     assert(posterCheck(smallPosters))
 
-    warn("bot plugin assets r good to go")
+    print("bot plugin assets r good to go")
 end
 
 local function make()
@@ -200,6 +200,10 @@ if bot then
 end
 
 create.Click:Connect(function()
+    if shouldStart then
+        error("BOT PLUGIN SESSION IN PROGRESS. CANT CHANGE ASSETS")
+    end
+
     bot = createBotSettings()
 
     make()
