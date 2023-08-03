@@ -1,4 +1,4 @@
--- <> todo desc <> --
+-- <> simple system for calling functions in intervals <> --
 
 local source = script.Parent.Parent.Parent
 local packages = source.Packages
