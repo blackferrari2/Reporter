@@ -186,17 +186,15 @@ local function verify()
 end
 
 local function make()
-    setup()
     verify()
-
-    toggleStart.Enabled = true
+    setup()
 end
 
 --
 
 -- settings already found, can start
 if bot then
-    make()
+    toggleStart.Enabled = true
 end
 
 create.Click:Connect(function()
@@ -206,7 +204,7 @@ create.Click:Connect(function()
 
     bot = createBotSettings()
 
-    make()
+    toggleStart.Enabled = true
 end)
 
 ---------------
@@ -237,6 +235,14 @@ end
 toggleStart.Click:Connect(function()
     shouldStart = not shouldStart
 
+    bot = findBotSettings()
+
+    if not bot then
+        error("FATAL ERROR: CANT FIND BOT SETTINGS")
+    end
+
+    make()
+
     updateButtonIcon(toggleStart, Config.START_TOGGLE_BUTTON, shouldStart)
 
     if shouldStart then
@@ -244,12 +250,12 @@ toggleStart.Click:Connect(function()
     else
         onStop()
     end
-end)
 
--- reset pause button back to idle when ending a session
-toggleStart.Click:Connect(function()
+    --
+
     togglePause.Enabled = not shouldStart
 
+    -- reset pause button back to idle when ending a session
     if not shouldStart then
         return
     end
