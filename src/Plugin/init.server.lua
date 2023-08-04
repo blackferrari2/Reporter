@@ -8,7 +8,7 @@
 
 --[[
     by Jonichromed (blackferrari2)
-    Last Updated: 2nd of August, 2023
+    Last Updated: 3rd of August, 2023
 
     PATCH NOTES:
         - now not hard coded
@@ -253,10 +253,10 @@ toggleStart.Click:Connect(function()
 
     --
 
-    togglePause.Enabled = not shouldStart
+    togglePause.Enabled = shouldStart
 
     -- reset pause button back to idle when ending a session
-    if not shouldStart then
+    if shouldStart then
         return
     end
 

@@ -19,7 +19,7 @@ function WEBHOOK.new(URL)
 end
 
 local function isEmptyText(text)
-    return text == "" or text == " "
+    return text == nil or text == "" or text == " "
 end
 
 function WEBHOOK:message(text)
