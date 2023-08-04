@@ -21,8 +21,8 @@ PLUGIN.PAUSE_TOGGLE_BUTTON = {
 }
 
 PLUGIN.CREATE_ASSETS_BUTTON = {
-    TITLE = "Create Bot Assets",
-    TIP = "Creates an assets folder allowing you to customize the bot's behavior",
+    TITLE = "Create / Replace Bot Assets",
+    TIP = "Creates an assets folder allowing you to customize the bot's behavior. WARNING: Will OVERRIDE the previous folder if there was one",
     ICON = "http://www.roblox.com/asset/?id=14294781544",
 }
 
