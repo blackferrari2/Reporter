@@ -122,7 +122,7 @@ local function setup()
 
     checkpointLoopRate = assets.CHECKPOINT_INTERVAL
 
-    local messageList = require(bot.Posts)
+    local messageList = require(bot._Posts)
     local webhook = WebhookService.new(assets.WEBHOOK_URL)
 
     sendBotMessage = messageList.new(webhook)
@@ -182,7 +182,7 @@ local function verify()
     assert(posterCheck(bigPosters))
     assert(posterCheck(smallPosters))
 
-    print("bot plugin assets r good to go")
+    print("BOT PLUGIN ASSETS: CHECKS PASSED!!!")
 end
 
 local function make()

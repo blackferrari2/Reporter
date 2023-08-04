@@ -1,7 +1,7 @@
 -- <> default message templates <> --
 
 --[[
-    NOTE
+    WARNING
 
     DO NOT EDIT TAGS OR TEMPLATE NAMES UNLESS U KNOW WHAT UR DOING
 ]]

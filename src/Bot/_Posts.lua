@@ -1,15 +1,15 @@
 -- <> messages that are sent whenever a new session starts <> --
 
 --[[
-    NOTE
+    WARNING
 
-    DO NOT EDIT THE FUNCTION names UNLESS U KNOW WHAT UR DOING
+    DO NOT EDIT UNLESS U KNOW WHAT UR DOING
 ]]
 
 local bot = script.Parent
 
 local Assets = require(bot.Assets)
-local Templates = require(bot.Templates)
+local Templates = require(bot._Templates)
 local Openers = require(bot.Openers)
 local Checkpoints = require(bot.Checkpoints)
 
